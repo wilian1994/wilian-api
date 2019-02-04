@@ -15,7 +15,7 @@ public class Pessoa {
 	private long id;
 	private String nome;
 	private boolean ativo;
-	private Address endereco;
+	private Endereco endereco;
 
 	public long getId() {
 		return id;
@@ -41,11 +41,11 @@ public class Pessoa {
 		this.ativo = ativo;
 	}
 
-	public Address getEndereco() {
+	public Endereco getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(Address endereco) {
+	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
 

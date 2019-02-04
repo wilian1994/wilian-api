@@ -3,7 +3,7 @@ package com.example.wilian.api.model;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class Address {
+public class Endereco {
 
 	private String logradouro;
 	private String numero;

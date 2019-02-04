@@ -16,17 +16,17 @@ public class Categoria {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "codigo")
-	private Integer id;
-	
+	private Long id;
+
 	@NotNull
 	@Size(min = 3, max = 20)
 	private String nome;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
