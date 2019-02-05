@@ -3,6 +3,7 @@ package com.example.wilian.api.resources;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -12,14 +13,17 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.wilian.api.event.RecursoCriadoEvent;
 import com.example.wilian.api.model.Pessoa;
 import com.example.wilian.api.repository.PessoaRepository;
+import com.example.wilian.api.service.PessoaService;
 
 @RestController
 @RequestMapping("/pessoas")
@@ -30,6 +34,9 @@ public class PessoaResource {
 
 	@Autowired
 	private ApplicationEventPublisher publisher;
+
+	@Autowired
+	private PessoaService pessoaService;
 
 	@GetMapping
 	public List<Pessoa> listar() {
@@ -60,4 +67,19 @@ public class PessoaResource {
 		pessoaRepository.delete(id);
 	}
 
+	// No requestBody, passamos o que queremos atualizar
+	@PutMapping("/{id}")
+	public ResponseEntity<Pessoa> alter(@PathVariable Long id, @Valid @RequestBody Pessoa pessoa) {
+
+		Pessoa pessoaSalva = pessoaService.atualizar(id, pessoa);
+		return ResponseEntity.ok(pessoaSalva);
+	}
+
+	// atualização parcial de uma propriedade
+	@PutMapping("{/id}/ativo")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void atualizarPropriedadeAtivo(@PathVariable Long id, @RequestBody boolean ativo) {
+		pessoaService.atualizarPropriedadeAtivo(id, ativo);
+
+	}
 }
