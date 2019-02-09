@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,7 +48,7 @@ public class PessoaResource {
 
 		// Pegar apartir da requisição atual adicionar o código na URI, usado
 		// para fazer redirect, ou quando um novo recurso foi criado
-		publisher.publishEvent(new RecursoCriadoEvent(this, response, pessoaSalva.getId()));
+		publisher.publishEvent(new RecursoCriadoEvent(this, response, pessoaSalva.getCodigo()));
 
 		// devolve o status e o body da pessoa salva
 		return ResponseEntity.status(HttpStatus.CREATED).body(pessoaSalva);
