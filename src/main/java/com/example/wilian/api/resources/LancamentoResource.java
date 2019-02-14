@@ -24,6 +24,7 @@ import com.example.wilian.api.exception.PessoaInexistenteOuInativaException;
 import com.example.wilian.api.exception.WilianExceptionHandler.Erro;
 import com.example.wilian.api.model.Lancamento;
 import com.example.wilian.api.repository.LancamentoRepository;
+import com.example.wilian.api.resources.filter.LancamentoFilter;
 import com.example.wilian.api.service.LancamentoService;
 
 @RestController
@@ -43,7 +44,7 @@ public class LancamentoResource {
 	MessageSource messageSource;
 
 	@GetMapping
-	public List<Lancamento> listar() {
+	public List<Lancamento> pesquisar(LancamentoFilter filter) {
 		return lancamentoRepository.findAll();
 	}
 
