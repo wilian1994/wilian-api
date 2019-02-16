@@ -59,23 +59,25 @@ public class WilianExceptionHandler extends ResponseEntityExceptionHandler {
 
 		return erros;
 	}
-	
-	@ExceptionHandler({DataIntegrityViolationException.class})
-	public ResponseEntity<Object> handleDataIntegrityViolationException(DataIntegrityViolationException ex, WebRequest request){
-		String mensagemUsuario = messageResource.getMessage("recurso.operacao-nao-permitida", null, LocaleContextHolder.getLocale());
+
+	@ExceptionHandler({ DataIntegrityViolationException.class })
+	public ResponseEntity<Object> handleDataIntegrityViolationException(DataIntegrityViolationException ex,
+			WebRequest request) {
+		String mensagemUsuario = messageResource.getMessage("recurso.operacao-nao-permitida", null,
+				LocaleContextHolder.getLocale());
 		String mensagemDev = ExceptionUtils.getRootCauseMessage(ex);
 		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDev));
 		return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
 	}
 
 	// criando uma excessao para o erro informado
-	@ExceptionHandler({EmptyResultDataAccessException.class})
-	public ResponseEntity<Object> handleEmptyResultDataAcessException(RuntimeException ex, WebRequest request){
-		String mensagemInvalida = messageResource.getMessage("recuso.nao-encontrado", null,
+	@ExceptionHandler({ EmptyResultDataAccessException.class })
+	public ResponseEntity<Object> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex,
+			WebRequest request) {
+		String mensagemUsuario = messageResource.getMessage("recurso.nao-encontrado", null,
 				LocaleContextHolder.getLocale());
-		String mensagemDev = ex.toString();
-		List<Erro> erros = Arrays.asList(new Erro(mensagemInvalida, mensagemDev));
-		
+		String mensagemDesenvolvedor = ex.toString();
+		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
 		return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
 	}
 
