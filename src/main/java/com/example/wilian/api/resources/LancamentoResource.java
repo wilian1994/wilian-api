@@ -44,8 +44,8 @@ public class LancamentoResource {
 	MessageSource messageSource;
 
 	@GetMapping
-	public List<Lancamento> pesquisar(LancamentoFilter filter) {
-		return lancamentoRepository.findAll();
+	public List<Lancamento> listar(LancamentoFilter filter) {
+		return lancamentoRepository.filtrar(filter);
 	}
 
 	@GetMapping("/{codigo}")
