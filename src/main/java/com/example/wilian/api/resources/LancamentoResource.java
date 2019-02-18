@@ -2,7 +2,6 @@ package com.example.wilian.api.resources;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -47,8 +48,8 @@ public class LancamentoResource {
 	MessageSource messageSource;
 
 	@GetMapping
-	public List<Lancamento> listar(LancamentoFilter filter) {
-		return lancamentoRepository.filtrar(filter);
+	public Page<Lancamento> listar(LancamentoFilter filter, Pageable pageable) {
+		return lancamentoRepository.filtrar(filter, pageable);
 	}
 
 	@GetMapping("/{codigo}")
